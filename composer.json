@@ -1,0 +1,39 @@
+{
+  "name": "swoft/blade",
+  "description": "swoft blade",
+  "keywords": ["swoft blade", "laravel blade"],
+  "license": "MIT",
+  "support": {
+    "issues": "https://github.com/jqhph/swoft-blade/issues",
+    "source": "https://github.com/jqhph/swoft-blade"
+  },
+  "authors": [
+    {
+      "name": "Jqh",
+      "email": "841324345@qq.com"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "replace": {
+
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.1"
+  },
+  "autoload": {
+    "files": [
+      "blade/Support/helpers.php"
+    ],
+    "psr-4": {
+      "Swoft\\": "blade"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  },
+  "minimum-stability": "dev"
+}
