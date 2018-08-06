@@ -1,7 +1,7 @@
 {
-  "name": "swoft/blade",
+  "name": "lldca/swoft-blade",
   "description": "swoft blade",
-  "keywords": ["swoft blade", "laravel blade"],
+  "keywords": ["swoft blade"],
   "license": "MIT",
   "support": {
     "issues": "https://github.com/jqhph/swoft-blade/issues",
