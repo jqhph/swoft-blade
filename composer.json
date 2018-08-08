@@ -25,10 +25,10 @@
   },
   "autoload": {
     "files": [
-      "blade/Support/helpers.php"
+      "src/Support/helpers.php"
     ],
     "psr-4": {
-      "Swoft\\": "blade"
+      "Swoft\\": "src"
     }
   },
   "extra": {
