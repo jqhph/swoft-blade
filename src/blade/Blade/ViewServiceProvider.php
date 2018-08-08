@@ -2,25 +2,20 @@
 
 namespace Swoft\Blade;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Swoft\Bean\Annotation\Bean;
+use Swoft\Bean\Annotation\BootBean;
 use Swoft\Bean\BeanFactory;
 use Swoft\Bean\Container;
-use Swoft\Blade\Engines\PhpEngine;
-use Swoft\Blade\Engines\FileEngine;
+use Swoft\Blade\Compilers\BladeCompiler;
 use Swoft\Blade\Engines\CompilerEngine;
 use Swoft\Blade\Engines\EngineResolver;
-use Swoft\Blade\Compilers\BladeCompiler;
-use Swoft\Http\Message\Middleware\MiddlewareInterface;
+use Swoft\Blade\Engines\FileEngine;
+use Swoft\Blade\Engines\PhpEngine;
+use Swoft\Core\BootBeanInterface;
 
 /**
- * Class ViewServiceProvider
- * @package Swoft\Blade
- * @Bean()
+ * @BootBean()
  */
-class ViewServiceProvider implements MiddlewareInterface
+class ViewServiceProvider implements BootBeanInterface
 {
     /**
      * @var Container
@@ -32,22 +27,11 @@ class ViewServiceProvider implements MiddlewareInterface
         $this->container = BeanFactory::getContainer();
     }
 
-    /**
-     * Process an incoming server request and return a response, optionally delegating
-     * response creation to a handler.
-     *
-     * @param \Psr\Http\Message\ServerRequestInterface $request
-     * @param \Psr\Http\Server\RequestHandlerInterface $handler
-     * @return \Psr\Http\Message\ResponseInterface
-     * @throws \InvalidArgumentException
-     */
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
+    public function beans()
     {
-        include_once alias('@root/custorm-swoft/Support/helpers.php');
-
         $this->register();
 
-        return $handler->handle($request);
+        return [];
     }
 
     /**
@@ -135,7 +119,7 @@ class ViewServiceProvider implements MiddlewareInterface
     public function registerFileEngine($resolver)
     {
         $resolver->register('file', function () {
-            return new FileEngine;
+            return new FileEngine();
         });
     }
 
@@ -148,7 +132,7 @@ class ViewServiceProvider implements MiddlewareInterface
     public function registerPhpEngine($resolver)
     {
         $resolver->register('php', function () {
-            return new PhpEngine;
+            return new PhpEngine();
         });
     }
 

@@ -3,7 +3,8 @@
 namespace Swoft\Blade;
 
 use InvalidArgumentException;
-use Swoft\Blade\Filesystem;
+use Swoft\App;
+use Swoft\Support\Filesystem;
 
 class FileViewFinder implements ViewFinderInterface
 {
@@ -49,8 +50,7 @@ class FileViewFinder implements ViewFinderInterface
      */
     public function __construct()
     {
-        $this->files = new Filesystem();
-        $this->paths = config('blade-view.path');
+        $this->files = filesystem();
     }
 
     /**
@@ -69,7 +69,7 @@ class FileViewFinder implements ViewFinderInterface
             return $this->views[$name] = $this->findNamespacedView($name);
         }
 
-        return $this->views[$name] = $this->findInPaths($name, $this->paths);
+        return $this->views[$name] = $this->findInPaths($name, $this->getPaths());
     }
 
     /**
@@ -162,7 +162,7 @@ class FileViewFinder implements ViewFinderInterface
      */
     public function prependLocation($location)
     {
-        array_unshift($this->paths, $location);
+        array_unshift($this->getPaths(), $location);
     }
 
     /**
@@ -266,6 +266,9 @@ class FileViewFinder implements ViewFinderInterface
      */
     public function getPaths()
     {
+        if (!$this->paths) {
+            $this->paths[] = App::getAlias(config('blade-view.path') ?: '@root/resources/views');
+        }
         return $this->paths;
     }
 

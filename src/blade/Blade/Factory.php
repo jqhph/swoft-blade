@@ -88,8 +88,6 @@ class Factory
      */
     public function __construct()
     {
-        $this->events = bean('eventManager');
-
         $this->share('__env', $this);
     }
 
@@ -514,7 +512,7 @@ class Factory
      */
     public function getDispatcher()
     {
-        return $this->events;
+        return $this->events ?: ($this->events = bean('eventManager'));
     }
 
     /**

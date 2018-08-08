@@ -62,3 +62,30 @@ if (! function_exists('blade')) {
         return \Swoft::getBean('blade.view')->make($view, $data, $mergeData);
     }
 }
+
+if (! function_exists('blade_factory')) {
+    /**
+     * blade模板引擎工厂对象
+     *
+     * @param string $view
+     * @param array $data
+     * @param array $mergeData
+     * @return \Swoft\Blade\Factory
+     */
+    function blade_factory()
+    {
+        return \Swoft::getBean('blade.view');
+    }
+}
+
+if (! function_exists('filesystem')) {
+    /**
+     * @return \Swoft\Support\Filesystem
+     */
+    function filesystem(): \Swoft\Support\Filesystem
+    {
+        static $instance;
+
+        return $instance ?: ($instance = new \Swoft\Support\Filesystem);
+    }
+}

@@ -165,7 +165,7 @@ trait ManagesEvents
             };
         }
 
-        $this->events->attach($name, $callback);
+        $this->getDispatcher()->attach($name, $callback);
     }
 
     /**
@@ -176,7 +176,7 @@ trait ManagesEvents
      */
     public function callComposer(ViewContract $view)
     {
-        $this->events->trigger('composing: '.$view->name(), [$view]);
+        $this->getDispatcher()->trigger('composing: '.$view->name(), [$view]);
     }
 
     /**
@@ -187,6 +187,6 @@ trait ManagesEvents
      */
     public function callCreator(ViewContract $view)
     {
-        $this->events->trigger('creating: '.$view->name(), [$view]);
+        $this->getDispatcher()->trigger('creating: '.$view->name(), [$view]);
     }
 }

@@ -3,7 +3,8 @@
 namespace Swoft\Blade\Compilers;
 
 use InvalidArgumentException;
-use Swoft\Blade\Filesystem;
+use Swoft\App;
+use Swoft\Support\Filesystem;
 
 abstract class Compiler
 {
@@ -30,8 +31,8 @@ abstract class Compiler
      */
     public function __construct()
     {
-        $this->files = new Filesystem();
-        $this->cachePath = config('blade-view.compiled');
+        $this->files = filesystem();
+        $this->cachePath = App::getAlias((string)config('blade-view.compiled') ?: '@root/runtime/blade');
         if (! $this->cachePath) {
             throw new InvalidArgumentException('Please provide a valid cache path.');
         }
