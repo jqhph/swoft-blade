@@ -227,7 +227,7 @@ class View implements ArrayAccess, ViewContract
     protected function formatErrors($provider)
     {
         return $provider instanceof MessageProvider
-                        ? $provider->getMessageBag() : new MessageBag((array) $provider);
+            ? $provider->getMessageBag() : new MessageBag((array) $provider);
     }
 
     /**
@@ -418,20 +418,15 @@ class View implements ArrayAccess, ViewContract
     /**
      * @return ResponseInterface
      */
-    public function toResponse(): ResponseInterface
+    public function toResponse(string $charset = 'utf-8'): ResponseInterface
     {
         $response = RequestContext::getResponse();
 
-        return $response->withContent($this->render())->withoutHeader('Content-Type')->withAddedHeader('Content-Type', 'text/html');
+        return $response
+            ->withContent($this->render())
+            ->withoutHeader('Content-Type')
+            ->withAddedHeader('Content-Type', 'text/html')
+            ->withAddedHeader('Content-Type', 'charset='.$charset);
     }
 
-    /**
-     * Get the string contents of the view.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
 }
