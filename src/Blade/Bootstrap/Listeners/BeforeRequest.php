@@ -34,13 +34,15 @@ class BeforeRequest implements EventHandlerInterface
      */
     public function handle(EventInterface $event)
     {
+        $factory = blade_factory();
+
+        $factory->share('__env', $factory);
         if (static::$registed) {
             return;
         }
         static::$registed = true;
 
         // 注册视图命名空间
-        $factory = blade_factory();
         if ($namespaces = config('blade-view.namespaces')) {
             foreach ((array)$namespaces as $namespace => &$path) {
                 $factory->addNamespace($namespace, App::getAlias($path));

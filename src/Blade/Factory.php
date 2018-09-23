@@ -3,6 +3,7 @@
 namespace Swoft\Blade;
 
 use Swoft\Blade\Contracts\Engine;
+use Swoft\Core\Coroutine;
 use Swoft\Support\Arr;
 use Swoft\Support\Str;
 use InvalidArgumentException;
@@ -80,16 +81,6 @@ class Factory
      * @var int
      */
     protected $renderCount = 0;
-
-    /**
-     * Create a new view factory instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->share('__env', $this);
-    }
 
     public function setEngineResolver(EngineResolver $engines)
     {
@@ -214,8 +205,8 @@ class Factory
         // with "raw|" for convenience and to let this know that it is a string.
         else {
             $result = Str::startsWith($empty, 'raw|')
-                        ? substr($empty, 4)
-                        : $this->make($empty)->render();
+                ? substr($empty, 4)
+                : $this->make($empty)->render();
         }
 
         return $result;
@@ -316,10 +307,15 @@ class Factory
      */
     public function share($key, $value = null)
     {
+        $tid = Coroutine::tid();
+        if (!isset($this->shared[$tid])) {
+            $this->shared[$tid] = [];
+        }
+
         $keys = is_array($key) ? $key : [$key => $value];
 
         foreach ($keys as $key => $value) {
-            $this->shared[$key] = $value;
+            $this->shared[$tid][$key] = $value;
         }
 
         return $value;
@@ -556,7 +552,12 @@ class Factory
      */
     public function shared($key, $default = null)
     {
-        return Arr::get($this->shared, $key, $default);
+        $tid = Coroutine::tid();
+        if (!isset($this->shared[$tid])) {
+            $this->shared[$tid] = [];
+        }
+
+        return Arr::get($this->shared[$tid], $key, $default);
     }
 
     /**
@@ -566,6 +567,19 @@ class Factory
      */
     public function getShared()
     {
-        return $this->shared;
+        $tid = Coroutine::tid();
+        if (!isset($this->shared[$tid])) {
+            $this->shared[$tid] = [];
+        }
+        return $this->shared[$tid];
+    }
+
+    /**
+     * 释放资源
+     */
+    public function release()
+    {
+        $tid = Coroutine::tid();
+        unset($this->shared[$tid]);
     }
 }
