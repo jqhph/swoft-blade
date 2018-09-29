@@ -16,7 +16,7 @@ Lavarel*5.6* blade模板引擎移植
 ```php
 'components' => [
     'custom' => [
-        'Swoft\\Blade' => dirname(dirname(__DIR__)).'/vendor/lldca/swoft-blade/src/Blade'
+        'Swoft\\Blade'
     ],
 ],
 'blade-view' => [
