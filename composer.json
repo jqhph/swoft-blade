@@ -15,7 +15,8 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": ">=7.0",
+    "lldca/swoft-support": "dev-master"
   },
   "replace": {
 
@@ -25,7 +26,6 @@
   },
   "autoload": {
     "files": [
-      "src/Support/helpers.php"
     ],
     "psr-4": {
       "Swoft\\": "src"
