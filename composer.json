@@ -16,7 +16,7 @@
   ],
   "require": {
     "php": ">=7.0",
-    "lldca/swoft-support": "dev-master"
+    "lldca/swoft-support": "0.1.*"
   },
   "replace": {
 
