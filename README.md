@@ -6,7 +6,7 @@ Lavarel*5.6* blade模板引擎移植
 需要把composer源切为<code>https://packagist.laravel-china.org</code>，或国外源。 
 
 运行：
-<code>composer require "lldca/swoft-blade dev-master"</code>
+<code>composer require lldca/swoft-blade</code>
 
 如果安装后使用有问题，请运行 <code>composer update</code> 更新下最新的swoft组件。
 
