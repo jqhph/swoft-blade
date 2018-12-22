@@ -28,7 +28,7 @@
     "files": [
     ],
     "psr-4": {
-      "Swoft\\": "src"
+      "Swoft\\Blade\\": "src/Blade"
     }
   },
   "extra": {
