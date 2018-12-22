@@ -16,7 +16,7 @@ Lavarel*5.6* blade模板引擎移植
 ```php
 'components' => [
     'custom' => [
-        'Swoft\\Blade'
+        'Swoft\\Blade\\'
     ],
 ],
 'blade-view' => [
